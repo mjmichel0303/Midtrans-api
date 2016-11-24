@@ -24,6 +24,9 @@ API covered:
 6. Select **Type** as `Basic Auth`, fill **Username** with your **Server Key** (looks like this `VT-server-xxxxxx`). Leave **Password** field blank, click **Update Request**
 7. Now you can `save` then click `send` the request. You will get server response.
 
+> ![Authorization Config](https://cloud.githubusercontent.com/assets/13027142/20592019/1e6ab9ec-b25e-11e6-9285-c68fef6c538c.png)
+
+
 ## SNAP Token Usage Example
 
 If you are testing `Snap transaction token request` you will get response like:
@@ -69,7 +72,3 @@ If you get error
 * [SNAP documentation](http://snap-docs.midtrans.com)
 * [Core API documentation](http://api-docs.midtrans.com)
 * Can't find answer you looking for? email to [support@midtrans.com](mailto:support@midtrans.com)
-
-
-
-
