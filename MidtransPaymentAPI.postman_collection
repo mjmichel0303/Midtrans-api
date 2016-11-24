@@ -1,0 +1,985 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Midtrans Payment API",
+		"_postman_id": "a7e86784-e37e-cf46-2c53-e3ca4427beff",
+		"description": "Basic example of Midtrans.com payment API usage.\nIncluding usage of:\n- SNAP API\n- Core API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. SNAP API Sandbox",
+			"description": "",
+			"item": [
+				{
+					"name": "1.a.  SNAP transaction token request (minimum)",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101\",\n    \"gross_amount\": 10000\n  }, \n  \"credit_card\": {\n    \"secure\": true\n  }\n}"
+						},
+						"description": "SNAP transaction token request with minimum mandatory parameters. You can do transaction only with this minimum parameters.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-parameter-request-body"
+					},
+					"response": []
+				},
+				{
+					"name": "1.b.  SNAP transaction token request",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-102\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true\n  },\n  \"item_details\": [{\n    \"id\": \"ITEM1\",\n    \"price\": 10000,\n    \"quantity\": 1,\n    \"name\": \"Midtrans Bear\"\n  }],\n  \"customer_details\": {\n    \"first_name\": \"TEST\",\n    \"last_name\": \"MIDTRANSER\",\n    \"email\": \"test@midtrans.com\",\n    \"phone\": \"+628123456\",\n    \"billing_address\": {\n      \"first_name\": \"TEST\",\n      \"last_name\": \"MIDTRANSER\",\n      \"email\": \"test@midtrans.com\",\n      \"phone\": \"081 2233 44-55\",\n      \"address\": \"Sudirman\",\n      \"city\": \"Jakarta\",\n      \"postal_code\": \"12190\",\n      \"country_code\": \"IDN\"\n    },\n    \"shipping_address\": {\n      \"first_name\": \"TEST\",\n      \"last_name\": \"MIDTRANSER\",\n      \"email\": \"noreply@midtrans.com\",\n      \"phone\": \"0812345678910\",\n      \"address\": \"Sudirman\",\n      \"city\": \"Jakarta\",\n      \"postal_code\": \"12190\",\n      \"country_code\": \"IDN\"\n    }\n  }\n}"
+						},
+						"description": "SNAP transaction token request with recommended parameter.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-parameter-request-body"
+					},
+					"response": []
+				},
+				{
+					"name": "GET transaction status",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-102\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"channel\": \"migs\",\n    \"save_card\": false,\n    \"bank\": \"bca\",\n    \"installment\": {\n      \"required\": false,\n      \"terms\": {\n        \"bni\": [3, 6, 12],\n        \"mandiri\": [3, 6, 12],\n        \"cimb\": [3],\n        \"bca\": [3, 6, 12],\n        \"offline\": [6, 12]\n      }\n    }\n  },\n  \"item_details\": [{\n    \"id\": \"ITEM1\",\n    \"price\": 10000,\n    \"quantity\": 1,\n    \"name\": \"Midtrans Bear\"\n  }],\n  \"customer_details\": {\n    \"first_name\": \"TEST\",\n    \"last_name\": \"MIDTRANSER\",\n    \"email\": \"test@midtrans.com\",\n    \"phone\": \"+628123456\",\n    \"billing_address\": {\n      \"first_name\": \"TEST\",\n      \"last_name\": \"MIDTRANSER\",\n      \"email\": \"test@midtrans.com\",\n      \"phone\": \"081 2233 44-55\",\n      \"address\": \"Sudirman\",\n      \"city\": \"Jakarta\",\n      \"postal_code\": \"12190\",\n      \"country_code\": \"IDN\"\n    },\n    \"shipping_address\": {\n      \"first_name\": \"TEST\",\n      \"last_name\": \"MIDTRANSER\",\n      \"email\": \"noreply@midtrans.com\",\n      \"phone\": \"0812345678910\",\n      \"address\": \"Sudirman\",\n      \"city\": \"Jakarta\",\n      \"postal_code\": \"12190\",\n      \"country_code\": \"IDN\"\n    }\n  },\n  \"expiry\": {\n    \"start_time\": \"2017-04-13 18:11:08 +0700\",\n    \"unit\": \"minutes\",\n    \"duration\": 180\n  }\n}"
+						},
+						"description": "Get information status of a transaction with certain order_id"
+					},
+					"response": []
+				},
+				{
+					"name": "APPROVE transaction that suspected as fraud (challange status)",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/approve",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Approve a transaction with certain order_id which gets challenge status from Fraud Detection System"
+					},
+					"response": []
+				},
+				{
+					"name": "CANCEL transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/cancel",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Cancel a transaction with certain order_id. Cancelation can only be done before settlement process for credit card transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "EXPIRE pending transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/expire",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Change order_id with pending status to be expired"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1.1 SNAP API Sandbox - Additional feature",
+			"description": "",
+			"item": [
+				{
+					"name": "SNAP TwoClick Credit Card",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-a\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"save_card\": true\n  }\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter for TwoClick Credit Card Transaction.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#two-clicks"
+					},
+					"response": []
+				},
+				{
+					"name": "SNAP Custom Enabled Payment",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-b\",\n    \"gross_amount\": 10000\n  },\n  \"enabled_payments \": [\n  \t\"credit_card\", \n  \t\"permata_va\", \n  \t\"bca_va\", \n  \t\"echannel\", \n  \t\"echannel\", \n  \t\"other_va\", \n  \t\"mandiri_clickpay\", \n  \t\"cimb_clicks\", \n  \t\"bca_klikbca\", \n  \t\"bca_klikpay\", \n  \t\"bri_epay\", \n  \t\"telkomsel_cash\", \n  \t\"bbm_money\", \n  \t\"xl_tunai\", \n  \t\"indosat_dompetku\", \n  \t\"mandiri_ecash\", \n  \t\"kioson\", \n  \t\"indomaret\"\n  \t]\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter to specify which payment method to display.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-parameter-request-body"
+					},
+					"response": []
+				},
+				{
+					"name": "SNAP Custom Expiry copy",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-c\",\n    \"gross_amount\": 10000\n  },\n  \"expiry\": {\n    \"start_time\": \"2017-04-13 18:11:08 +0700\",\n    \"unit\": \"minutes\",\n    \"duration\": 180\n  }\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter to specify time limit of the payment.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-object"
+					},
+					"response": []
+				},
+				{
+					"name": "SNAP Installment Credit Card",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-4\",\n    \"gross_amount\": 750000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"installment\": {\n      \"required\": false,\n      \"terms\": {\n        \"bni\": [3, 6, 12],\n        \"mandiri\": [3, 6, 12],\n        \"cimb\": [3, 6, 12],\n        \"bca\": [3, 6, 12],\n        \"offline\": [6, 12]\n      }\n    }\n  }\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter to allow installment for credit card payment.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-object"
+					},
+					"response": []
+				},
+				{
+					"name": "SNAP Custom Acquring bank",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-5\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"bank\": \"mandiri\"\n  }\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter to specify acquiring bank.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-object"
+					},
+					"response": []
+				},
+				{
+					"name": "SNAP Custom Acquring bank & channel",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-6\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"channel\": \"migs\",\n    \"bank\": \"bca\"\n  }\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter to specify acquiring bank.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-object"
+					},
+					"response": []
+				},
+				{
+					"name": "SNAP Custom allowed CC BIN number",
+					"request": {
+						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-101-7\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"whitelist_bins \": [\n    \t\"bni\",\n    \t\"mandiri\",\n    \t481111,\n    \t573212\n    \t]\n  }\n}"
+						},
+						"description": "SNAP transaction token request with additional parameter to specify only accept Credit Card from specific BIN number or specific issuing bank.\nLearn more about the parameters here:\nhttps://snap-docs.midtrans.com/#json-object"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Core API Sandbox",
+			"description": "",
+			"item": [
+				{
+					"name": "1. Charge Credit Card Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order-101a\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\"\n  },\n  \"item_details\": [{\n      \"id\": \"a1\",\n      \"price\": 50000,\n      \"quantity\": 2,\n      \"name\": \"Apel\",\n      \"brand\": \"Fuji Apple\",\n      \"category\": \"Fruit\",\n      \"merchant_name\": \"Fruit-store\"\n    }],\n    \"customer_details\": {\n      \"first_name\": \"BUDI\",\n      \"last_name\": \"UTOMO\",\n      \"email\": \"test@midtrans.com\",\n      \"phone\": \"+628123456\",\n      \"billing_address\": {\n        \"first_name\": \"BUDI\",\n        \"last_name\": \"UTOMO\",\n        \"email\": \"test@midtrans.com\",\n        \"phone\": \"081 2233 44-55\",\n        \"address\": \"Sudirman\",\n        \"city\": \"Jakarta\",\n        \"postal_code\": \"12190\",\n        \"country_code\": \"IDN\"\n      },\n      \"shipping_address\": {\n        \"first_name\": \"BUDI\",\n        \"last_name\": \"UTOMO\",\n        \"email\": \"test@midtrans.com\",\n        \"phone\": \"0 8128-75 7-9338\",\n        \"address\": \"Sudirman\",\n        \"city\": \"Jakarta\",\n        \"postal_code\": \"12190\",\n        \"country_code\": \"IDN\"\n      }\n    }\n}"
+						},
+						"description": "Charge credit card transaction\nPlease do get token step first to get token_id.\nhttps://api-docs.midtrans.com/#credit-card-charge"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Charge Bank Transfer Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"bank_transfer\",\n  \"bank_transfer\": {\n    \"bank\": \"permata\"\n  },\n  \"transaction_details\": {\n    \"order_id\": \"order-101b\",\n    \"gross_amount\": 44000\n  },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ]\n}"
+						},
+						"description": "Request Bank Transfer transaction\nResponse will also include Bank Transfer VA Number\nhttps://api-docs.midtrans.com/#bank-transfer"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Charge BCA Bank Transfer Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"bank_transfer\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101c\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n   \"bank_transfer\":{\n     \"bank\": \"bca\",\n     \"va_number\": \"111111\",\n     \"free_text\": {\n          \"inquiry\": [\n                {\n                    \"id\": \"Your Custom Text in ID language\",\n                    \"en\": \"Your Custom Text in EN language\"\n                }\n          ],\n          \"payment\": [\n                {\n                    \"id\": \"Your Custom Text in ID language\",\n                    \"en\": \"Your Custom Text in EN language\"\n                }\n          ]\n    }\n  }\n}"
+						},
+						"description": "Request Bank Transfer BCA transaction\nResponse will also include VA number\nhttps://api-docs.midtrans.com/#bank-transfer"
+					},
+					"response": []
+				},
+				{
+					"name": "4. Charge Mandiri Bill Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"echannel\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101d\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n    \"echannel\" : {\n        \"bill_info1\" : \"Payment For:\",\n        \"bill_info2\" : \"Food\"\n    }\n}"
+						},
+						"description": "Request Mandiri Bill Payment transaction\nResponse will also include bill_key number\nhttps://api-docs.midtrans.com/#bank-transfer"
+					},
+					"response": []
+				},
+				{
+					"name": "5. Charge BCA Klikpay Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"bca_klikpay\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101e\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n  \"bca_klikpay\": {\n    \"type\": 1,\n    \"description\": \"Pembelian Barang\"\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "6. Charge Klikbca Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"bca_klikbca\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101f\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n\t\"bca_klikbca\" : {\n\t\t\"description\" : \"testing transaction\",\n\t\t\"user_id\" : \"midtrans1012\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "7. Charge Mandiri Clickpay Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"mandiri_clickpay\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101g\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n\t\"mandiri_clickpay\": {\n    \t\"card_number\": \"4111111111111111\",\n    \t\"input1\": \"1111111111\",\n    \t\"input2\": \"44000\",\n    \t\"input3\": \"54321\",\n   \t\t\"token\": \"000000\"\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "8. Charge Epay BRI Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"bri_epay\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101h\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "9. Charge CIMB Clicks Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"cimb_clicks\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101i\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n    \"cimb_clicks\": {\n    \t\"description\": \"Purchase of a Food Delivery\"\n  \t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "10. Charge Telkomsel Cash Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"telkomsel_cash\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101j\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n  \t\"telkomsel_cash\": {\n    \t\"promo\": false,\n \t\t\"is_reversal\": 0,\n\t\t\"customer\": \"0811111111\"\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "11. Charge XL Tunai Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"xl_tunai\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101k\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "12. Charge Indosat Dompetku Payment Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"indosat_dompetku\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101l\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n    \"indosat_dompetku\": {\n        \"msisdn\": \"08123456789\"\n    }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "13. Charge Mandiri Ecash Payment Transaction ",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"mandiri_ecash\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101m\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n\t\"mandiri_ecash\": {\n\t\t\"description\": \"Transaction Description\"\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "14. Charge Indomaret Payment Transaction ",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"cstore\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101n\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n\t\"cstore\": {\n\t\t\"store\": \"Indomaret\",\n\t\t\"message\": \"Message to display\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "15. Charge Kioson Payment Transaction ",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_type\": \"cstore\",\n    \"transaction_details\": {\n        \"gross_amount\": 44000,\n        \"order_id\": \"order-101o\"\n    },\n    \"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n    \"item_details\": [\n    {\n       \"id\": \"item01\",\n       \"price\": 21000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Zozozo\"\n    },\n    {\n       \"id\": \"item02\",\n       \"price\": 23000,\n       \"quantity\": 1,\n       \"name\": \"Ayam Xoxoxo\"\n    }\n   ],\n\t\"cstore\": {\n\t\t\"store\": \"kioson\",\n\t\t\"message\": \"Message to display\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET transaction status",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"ORDER-102\",\n    \"gross_amount\": 10000\n  },\n  \"credit_card\": {\n    \"secure\": true,\n    \"channel\": \"migs\",\n    \"save_card\": false,\n    \"bank\": \"bca\",\n    \"installment\": {\n      \"required\": false,\n      \"terms\": {\n        \"bni\": [3, 6, 12],\n        \"mandiri\": [3, 6, 12],\n        \"cimb\": [3],\n        \"bca\": [3, 6, 12],\n        \"offline\": [6, 12]\n      }\n    }\n  },\n  \"item_details\": [{\n    \"id\": \"ITEM1\",\n    \"price\": 10000,\n    \"quantity\": 1,\n    \"name\": \"Midtrans Bear\"\n  }],\n  \"customer_details\": {\n    \"first_name\": \"TEST\",\n    \"last_name\": \"MIDTRANSER\",\n    \"email\": \"test@midtrans.com\",\n    \"phone\": \"+628123456\",\n    \"billing_address\": {\n      \"first_name\": \"TEST\",\n      \"last_name\": \"MIDTRANSER\",\n      \"email\": \"test@midtrans.com\",\n      \"phone\": \"081 2233 44-55\",\n      \"address\": \"Sudirman\",\n      \"city\": \"Jakarta\",\n      \"postal_code\": \"12190\",\n      \"country_code\": \"IDN\"\n    },\n    \"shipping_address\": {\n      \"first_name\": \"TEST\",\n      \"last_name\": \"MIDTRANSER\",\n      \"email\": \"noreply@midtrans.com\",\n      \"phone\": \"0812345678910\",\n      \"address\": \"Sudirman\",\n      \"city\": \"Jakarta\",\n      \"postal_code\": \"12190\",\n      \"country_code\": \"IDN\"\n    }\n  },\n  \"expiry\": {\n    \"start_time\": \"2017-04-13 18:11:08 +0700\",\n    \"unit\": \"minutes\",\n    \"duration\": 180\n  }\n}"
+						},
+						"description": "Get information status of a transaction with certain order_id"
+					},
+					"response": []
+				},
+				{
+					"name": "APPROVE transaction that suspected as fraud (challange status)",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/approve",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Approve a transaction with certain order_id which gets challenge status from Fraud Detection System"
+					},
+					"response": []
+				},
+				{
+					"name": "CANCEL transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/cancel",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Cancel a transaction with certain order_id. Cancelation can only be done before settlement process for credit card transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "EXPIRE pending transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/[INSERT-ORDER-ID]/expire",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Change order_id with pending status to be expired"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2.1 Core API Sandbox - Additional Feature",
+			"description": "",
+			"item": [
+				{
+					"name": "Core API Custom Whitelisted BIN",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-1\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\",\n    \"bins\": [\"48111111\", \"bni\", \"5\"]\n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to specify only accept payment from specific Credit Card BIN number or issuing bank\nPlease do get token step first to get token_id.\nhttps://api-docs.midtrans.com/#card-features-bin-promo"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card Installment",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-2\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\",\n    \"installment_term\": 12\n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to allow credit card installment\nPlease do get token step first to get token_id.\nhttps://api-docs.midtrans.com/#card-features-installment"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card Pre-Authorize transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-3\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\",\n    \"type\": \"authorize\" \n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to do pre-authorize transaction\nhttps://api-docs.midtrans.com/#card-features-pre-authorization"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card One Click 1st Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-4\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\",\n    \"save_token_id\": true \n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to do one click transaction on 1st transaction\nhttps://api-docs.midtrans.com/#card-features-one-click"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card One Click following Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-5\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from saved_token_id >\"\n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to do one click transaction on next transaction\nhttps://api-docs.midtrans.com/#card-features-one-click"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card Two Click following Transaction",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-6\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from saved_token_id >\",\n    \"save_token_id\": true \n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to do two click transaction on 1st transaction\nhttps://api-docs.midtrans.com/#card-features-two-click"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

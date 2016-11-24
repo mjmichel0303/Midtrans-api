@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+  </head>
+
+  <body>
+    <button id="pay-button">Pay!</button>
+    <h2 id="result-type"></h2>
+    <pre id="result-data"></pre>
+
+    <!-- Use this JS for sandbox -->
+    <script src="https://app.sandbox.veritrans.co.id/snap/snap.js"></script>
+
+    <!-- Use this JS for production -->
+    <!-- <script src="https://app.veritrans.co.id/snap/snap.js"></script> -->
+
+    <script type="text/javascript">
+      var payButton = document.getElementById('pay-button');
+      var resultType = document.getElementById('result-type');
+      var resultData = document.getElementById('result-data');
+
+      function changeResult(type,data){
+        resultType.innerHTML = type;
+        resultData.innerHTML = JSON.stringify(data);
+      }
+      payButton.onclick = function(){
+        // Insert your own snap token here
+        snap.pay('INSERT SNAP TOKEN HERE', 
+              {
+                // TODO implement these callbacks
+                onSuccess: function(result){
+                  console.log(result);
+                  changeResult('success', result);
+                },
+                onPending: function(result){
+                  console.log(result);
+                  changeResult('pending', result);
+                },
+                onError: function(result){
+                  console.log(result);
+                  changeResult('error', result);
+                },
+                onClose: function (result) {
+
+                }
+              })
+        ;
+      };
+    </script>
+  </body>
+</html>
