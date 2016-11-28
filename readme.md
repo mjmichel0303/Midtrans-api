@@ -29,7 +29,7 @@ API covered:
 
 ## Specific Usage
 
-#### SNAP Token Usage Example
+### SNAP - Snap Token Usage Example
 
 If you are testing `Snap transaction token request` you will get response like:
 ```
@@ -41,7 +41,7 @@ To use that token, you can open file `snap-opener/index.html` in your web browse
 You can also edit file `snap/index.html` and insert your own token to the HTML, then open in web browser.
 - All implementation in this example are pure HTML & Javascript so you don't need to have any server running.
 
-#### Core API - Credit Card Get Token
+### Core API - Credit Card Get Token Example
 
 To get credit card token for Core API Credit Card charge process, you can open `../coreAPI-getTokenCC/index.html` in your web browser.
 
@@ -68,7 +68,7 @@ If you get error
   ]
 }
 ```
-- Please make sure you do step 4-7 properly like instructed in **Usage Instruction** section.
+- Please make sure you do step 4-7 properly like instructed in **[Usage Instruction](#usage-instruction)** section.
 - Please make sure you are using correct **Server Key** (Serverkey for sandbox & production are different).
 
 ### Get Help
