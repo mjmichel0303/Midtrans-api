@@ -218,7 +218,7 @@
 					"response": []
 				},
 				{
-					"name": "SNAP Custom Expiry copy",
+					"name": "SNAP Custom Expiry",
 					"request": {
 						"url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
 						"method": "POST",
@@ -830,7 +830,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "Core API Custom Whitelisted BIN",
+					"name": "Core API Custom allowed CC BIN number",
 					"request": {
 						"url": "https://api.sandbox.midtrans.com/v2/charge",
 						"method": "POST",
@@ -976,6 +976,106 @@
 							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-6\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from saved_token_id >\",\n    \"save_token_id\": true \n  }\n}"
 						},
 						"description": "Charge credit card transaction with additional parameter to do two click transaction on 1st transaction\nhttps://api-docs.midtrans.com/#card-features-two-click"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card Custom Acquiring Bank",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-7\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\",\n    \"bank\": \"mandiri\"\n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to specify which acquiring bank you want to use\nPlease do get token step first to get token_id."
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Credit Card Custom Acquiring Bank & channel",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_type\": \"credit_card\",\n  \"transaction_details\": {\n    \"order_id\": \"order102-8\",\n    \"gross_amount\": 100000\n  },\n  \"credit_card\": {\n    \"token_id\": \"< Token ID from Get Token Step >\",\n    \"channel\": \"migs\",\n    \"bank\": \"bca\"\n  }\n}"
+						},
+						"description": "Charge credit card transaction with additional parameter to specify which acquiring bank & credit card channel you want to use\nPlease do get token step first to get token_id."
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Custom Expiry",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"payment_type\": \"bank_transfer\",\n\t\t\"bank_transfer\": {\n\t\t\"bank\": \"permata\"\n\t},\n\t\"transaction_details\": {\n\t\t\"order_id\": \"order-102-9\",\n\t\t\"gross_amount\": 44000\n\t},\n\t\"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n\t\"custom_expiry\": {\n\t\t\"order_time\": \"2017-04-13 18:11:08 +0700\",\n\t\t\"expiry_duration\": 180,\n\t\t\"unit\": \"minute\"\n  }\n}"
+						},
+						"description": "Request charge transaction with specific time limit of transaction to be available for payment"
+					},
+					"response": []
+				},
+				{
+					"name": "Core API Custom Field",
+					"request": {
+						"url": "https://api.sandbox.midtrans.com/v2/charge",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"payment_type\": \"bank_transfer\",\n\t\t\"bank_transfer\": {\n\t\t\"bank\": \"permata\"\n\t},\n\t\"transaction_details\": {\n\t\t\"order_id\": \"order-102-10\",\n\t\t\"gross_amount\": 44000\n\t},\n\t\"customer_details\": {\n        \"email\": \"test@Midtrans.com\",\n        \"first_name\": \"budi\",\n        \"last_name\": \"utomo\",\n        \"phone\": \"+6281 1234 1234\"\n    },\n\t\"custom_field1\": \"Your custom notes 1 (max 256 char)\",\n\t\"custom_field2\": \"Your custom notes 2 (max 256 char)\",\n\t\"custom_field3\": \"Your custom notes 3 (max 256 char)\"\n}"
+						},
+						"description": "Request charge transaction with additional parameter to input your custom note/message"
 					},
 					"response": []
 				}
