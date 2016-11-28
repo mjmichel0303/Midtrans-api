@@ -27,7 +27,9 @@ API covered:
 > ![Authorization Config](https://cloud.githubusercontent.com/assets/13027142/20592019/1e6ab9ec-b25e-11e6-9285-c68fef6c538c.png)
 
 
-## SNAP Token Usage Example
+## Specific Usage
+
+#### SNAP Token Usage Example
 
 If you are testing `Snap transaction token request` you will get response like:
 ```
@@ -38,6 +40,10 @@ To use that token, you can open file `snap-opener/index.html` in your web browse
 
 You can also edit file `snap/index.html` and insert your own token to the HTML, then open in web browser.
 - All implementation in this example are pure HTML & Javascript so you don't need to have any server running.
+
+#### Core API - Credit Card Get Token
+
+To get credit card token for Core API Credit Card charge process, you can open `../coreAPI-getTokenCC/index.html` in your web browser.
 
 ## Production Mode
 
