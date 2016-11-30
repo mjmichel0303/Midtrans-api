@@ -29,21 +29,31 @@ API covered:
 
 ## Specific Usage
 
-### SNAP - Snap Token Usage Example
+###### *You need to download/clone this repo to your local to use these:*
+
+### SNAP - Snap Popup Viewer
 
 If you are testing `Snap transaction token request` you will get response like:
 ```
 { "token": "bffb82ff-f8bb-4651-86b0-0c2316b77c0a" }
 ```
-To use that token, you can open file `snap-opener/index.html` in your web browser to preview the SNAP payment page.
+To see how that token works, you can open file `../snap-opener/index.html` in your web browser to preview the SNAP payment page.
 - Tips: you can also append snap token like this in url `../snap-opener/index.html?snap_token=bffb82ff-f8bb-4651-86b0-0c2316b77c0a&is_production=false`
 
 You can also edit file `snap/index.html` and insert your own token to the HTML, then open in web browser.
-- All implementation in this example are pure HTML & Javascript so you don't need to have any server running.
+
+###### *This file is for snap token viewer only, you should not use this for integration reference, for front-end integration sample, see below section*
+
+### SNAP - Snap Front-End Integration Example
+
+For real example on how you can use Snap token in your website front-end, you can see sample minimum implementation here:
+`../sample-frontend/index.html`
 
 ### Core API - Credit Card Get Token Example
 
 To get credit card token for Core API Credit Card charge process, you can open `../coreAPI-getTokenCC/index.html` in your web browser.
+
+##### *All implementation in this example are pure HTML & Javascript so you don't need to have any server running.*
 
 ## Production Mode
 
